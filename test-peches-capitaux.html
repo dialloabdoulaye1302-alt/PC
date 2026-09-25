@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Test des Péchés Capitaux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans+SC:wght@500;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --ink:#140f1c;
+  --panel:#1d1628;
+  --panel-2:#251c33;
+  --line:#3a2e4a;
+  --parch:#eee2cc;
+  --muted:#a797b3;
+  --gold:#d9aa52;
+  --gold-soft:rgba(217,170,82,.14);
+  --orgueil:#a57ae0;
+  --avarice:#e0b83c;
+  --envie:#4fb37a;
+  --colere:#e5584a;
+  --luxure:#e472a6;
+  --gourmandise:#ef8c3c;
+  --paresse:#62a3dc;
+  --display:"Pirata One", "UnifrakturCook", Georgia, serif;
+  --body:"Alegreya", Georgia, "Times New Roman", serif;
+  --label:"Alegreya Sans SC", "Trebuchet MS", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--ink);
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(165,122,224,.13), transparent 70%),
+    radial-gradient(ellipse 60% 30% at 50% 100%, rgba(229,88,74,.08), transparent 70%);
+  color:var(--parch);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.55;
+  padding-inline:16px;
+  padding-block:0 64px;
+}
+.wrap{max-width:760px;margin:0 auto}
+
+/* ---------- En-tête ---------- */
+header.hero{
+  text-align:center;
+  padding-block:56px 28px;
+}
+.eyebrow{
+  font-family:var(--label);
+  letter-spacing:.18em;
+  font-size:14px;
+  color:var(--gold);
+}
+h1{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(52px, 12vw, 96px);
+  line-height:.95;
+  margin:10px 0 6px;
+  text-wrap:balance;
+  color:var(--parch);
+}
+h1 span{color:var(--gold)}
+.sins-strip{
+  display:flex;justify-content:center;gap:6px;margin:18px auto 22px;flex-wrap:wrap;
+}
+.sins-strip i{
+  width:34px;height:10px;border-radius:2px;display:block;
+}
+.lede{
+  max-width:60ch;margin:0 auto;color:var(--muted);font-size:18px;text-wrap:pretty;
+}
+.rules{
+  margin:28px auto 0;
+  max-width:600px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:6px;
+  padding:18px 22px;
+  text-align:left;
+  font-size:16.5px;
+}
+.rules strong{color:var(--gold);font-weight:500}
+
+/* ---------- Barre collante ---------- */
+.bar{
+  position:sticky;
+  top:env(safe-area-inset-top, 0px);
+  z-index:10;
+  background:rgba(20,15,28,.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  margin-inline:-16px;
+  padding:10px 16px;
+}
+.bar-inner{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.bar-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font-family:var(--label);letter-spacing:.06em;font-size:15px;color:var(--muted)}
+.count b{color:var(--parch);font-variant-numeric:tabular-nums;font-weight:700}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav a{
+  font-family:var(--label);font-size:13px;letter-spacing:.06em;
+  color:var(--parch);text-decoration:none;
+  padding:3px 9px;border-radius:999px;border:1px solid var(--line);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.nav a:hover,.nav a:focus-visible{border-color:var(--gold);outline:none}
+.nav a i{width:8px;height:8px;border-radius:50%;display:block}
+.meter{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--panel-2)}
+.meter span{display:block;height:100%;transition:width .3s ease}
+
+/* ---------- Sections ---------- */
+section.sin{margin-top:48px;scroll-margin-top:110px}
+.sin-head{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:14px;
+  border-bottom:2px solid var(--c);
+  padding-bottom:10px;margin-bottom:6px;
+}
+.roman{
+  font-family:var(--display);font-size:44px;line-height:1;color:var(--c);min-width:1.4em;
+}
+.sin-head h2{
+  font-family:var(--display);font-weight:400;font-size:clamp(32px,6vw,42px);line-height:1;margin:0;
+}
+.sin-head .latin{
+  display:block;font-family:var(--body);font-style:italic;font-size:16px;color:var(--muted);margin-top:4px;
+}
+.sin-tally{
+  font-family:var(--label);font-size:14px;letter-spacing:.06em;color:var(--muted);
+  font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;
+}
+.sin-tally b{color:var(--c);font-weight:700}
+ol.qs{list-style:none;margin:0;padding:0}
+ol.qs li{border-bottom:1px solid var(--line)}
+ol.qs label{
+  display:grid;grid-template-columns:3.2em 22px 1fr;gap:12px;align-items:start;
+  padding:11px 6px;cursor:pointer;border-radius:4px;
+  transition:background .15s ease;
+}
+ol.qs label:hover{background:var(--panel)}
+.num{
+  font-family:var(--label);font-size:14px;color:var(--muted);text-align:right;padding-top:3px;
+  font-variant-numeric:tabular-nums;
+}
+input[type=checkbox]{
+  appearance:none;-webkit-appearance:none;
+  width:22px;height:22px;margin:2px 0 0;
+  border:1.5px solid var(--muted);border-radius:4px;background:transparent;
+  display:grid;place-items:center;cursor:pointer;
+  transition:background .15s ease,border-color .15s ease;
+}
+input[type=checkbox]::after{
+  content:"";width:10px;height:6px;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);
+  transform:rotate(-45deg) translate(1px,-1px);opacity:0;
+}
+input[type=checkbox]:checked{background:var(--c);border-color:var(--c)}
+input[type=checkbox]:checked::after{opacity:1}
+input[type=checkbox]:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.qtext{font-size:17.5px}
+label:has(input:checked) .qtext{color:var(--parch)}
+label:has(input:not(:checked)) .qtext{color:#d9cdb8}
+
+/* ---------- Actions ---------- */
+.actions{
+  margin-top:48px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+}
+button{
+  font-family:var(--label);letter-spacing:.08em;font-size:16px;font-weight:700;
+  border-radius:6px;padding:14px 26px;cursor:pointer;border:1.5px solid var(--gold);
+  transition:transform .1s ease, background .15s ease;
+}
+button:focus-visible{outline:2px solid var(--parch);outline-offset:3px}
+button:active{transform:translateY(1px)}
+.btn-main{background:var(--gold);color:var(--ink)}
+.btn-main:hover{background:#e7bb66}
+.btn-ghost{background:transparent;color:var(--parch);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn-ghost.danger{border-color:var(--colere);color:var(--colere)}
+
+/* ---------- Résultats ---------- */
+#results{margin-top:56px;scroll-margin-top:100px}
+.verdict{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),var(--ink));
+  border-radius:8px;
+  padding:32px 24px;
+  text-align:center;
+}
+.score-label{font-family:var(--label);letter-spacing:.18em;font-size:14px;color:var(--gold)}
+.score{
+  font-family:var(--display);font-size:clamp(88px,22vw,140px);line-height:1;margin:6px 0 0;
+  font-variant-numeric:tabular-nums;
+}
+.score small{font-size:.35em;color:var(--muted)}
+.circle{
+  font-family:var(--display);font-size:clamp(26px,5vw,34px);margin:8px 0 4px;color:var(--gold);
+}
+.circle-desc{max-width:52ch;margin:0 auto;color:var(--muted);text-wrap:pretty}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:20px}
+.card h3{
+  font-family:var(--label);letter-spacing:.14em;font-size:14px;font-weight:700;color:var(--gold);margin:0 0 12px;
+}
+.radar svg{width:100%;height:auto;display:block;max-width:100%}
+.bars{display:flex;flex-direction:column;gap:12px}
+.brow{display:grid;grid-template-columns:7.2em 1fr 3em;gap:10px;align-items:center}
+.brow .n{font-family:var(--label);font-size:15px;letter-spacing:.04em}
+.brow .t{height:10px;background:var(--panel-2);border-radius:5px;overflow:hidden}
+.brow .t span{display:block;height:100%;border-radius:5px;transition:width .6s ease}
+.brow .p{font-family:var(--label);font-size:15px;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+
+.dominant{margin-top:20px;border-left:4px solid var(--c);}
+.dominant .tag{font-family:var(--label);letter-spacing:.14em;font-size:14px;color:var(--c);font-weight:700}
+.dominant h4{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,46px);margin:2px 0 8px;line-height:1}
+.dominant p{margin:0 0 10px;max-width:62ch}
+.remede{font-size:16.5px;color:var(--muted)}
+.remede b{color:var(--parch);font-weight:500}
+.share{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
+.share textarea{
+  width:100%;min-height:78px;resize:vertical;background:var(--panel-2);color:var(--parch);
+  border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-family:var(--body);font-size:16px;
+}
+.toast{font-family:var(--label);letter-spacing:.06em;font-size:14px;color:var(--envie);min-height:1.2em}
+
+footer{margin-top:64px;text-align:center;color:var(--muted);font-size:15px}
+footer p{max-width:56ch;margin:0 auto}
+
+@media (max-width:480px){
+  body{font-size:17px}
+  ol.qs label{grid-template-columns:2.4em 22px 1fr;gap:10px}
+  .brow{grid-template-columns:6.4em 1fr 2.8em}
+  .sin-head{grid-template-columns:auto 1fr}
+  .sin-tally{grid-column:1 / -1;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Superbia · Avaritia · Invidia · Ira · Luxuria · Gula · Acedia</div>
+    <h1>Test des <span>Péchés</span> Capitaux</h1>
+    <div class="sins-strip" id="strip" aria-hidden="true"></div>
+    <p class="lede">105 questions, sept péchés, un seul verdict. Découvre ton indice de vertu, le cercle de l'Enfer qui t'attend et le péché qui te gouverne en secret.</p>
+    <div class="rules">
+      <strong>Règle du jeu.</strong> Coche chaque case qui correspond à quelque chose que tu as <em>déjà</em> fait, même une seule fois. Sois honnête : personne ne voit tes réponses, elles restent sur ton appareil. Plus tu coches, plus ton indice de vertu baisse. À la fin, clique sur « Calculer mon verdict ».
+    </div>
+  </header>
+
+  <div class="bar">
+    <div class="bar-inner">
+      <div class="bar-top">
+        <div class="count"><b id="nChecked">0</b> péché(s) avoué(s) sur <b>105</b> · vertu <b id="liveScore">100</b>/100</div>
+        <nav class="nav" id="nav" aria-label="Aller à un péché"></nav>
+      </div>
+      <div class="meter" id="meter" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <main id="sections"></main>
+
+  <div class="actions">
+    <button class="btn-main" id="calc" type="button">Calculer mon verdict</button>
+    <button class="btn-ghost" id="reset" type="button">Tout effacer</button>
+  </div>
+
+  <section id="results" hidden aria-live="polite">
+    <div class="verdict">
+      <div class="score-label">Indice de vertu</div>
+      <div class="score"><span id="rScore">0</span><small>/100</small></div>
+      <div class="circle" id="rCircle"></div>
+      <p class="circle-desc" id="rCircleDesc"></p>
+    </div>
+
+    <div class="grid2">
+      <div class="card radar">
+        <h3>Ton heptagone du vice</h3>
+        <svg id="radar" viewBox="-105 -30 510 360" role="img" aria-label="Diagramme radar des sept péchés"></svg>
+      </div>
+      <div class="card">
+        <h3>Détail par péché</h3>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+
+    <div class="card dominant" id="dominant"></div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>Partager ton résultat</h3>
+      <div class="share">
+        <textarea id="shareText" readonly aria-label="Texte à partager"></textarea>
+        <button class="btn-ghost" id="copy" type="button">Copier le texte</button>
+        <span class="toast" id="toast"></span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Un jeu dans l'esprit du Test de Pureté, à faire entre amis. Aucun résultat n'est envoyé nulle part : tout se passe dans ton navigateur. Les sept péchés suivent la liste de Grégoire le Grand, les cercles viennent de l'Enfer de Dante.</p>
+  </footer>
+</div>
+
+<script>
+const SINS = [
+  {id:"orgueil", name:"Orgueil", latin:"Superbia", roman:"I", virtue:"l'humilité",
+   portrait:"Tu es ton propre public préféré. Tu soignes ton image, tu aimes avoir raison et tu as du mal à dire « je ne sais pas ». Au fond, c'est souvent une façon de te protéger.",
+   remede:"Admets une erreur à voix haute cette semaine, et demande de l'aide pour une chose que tu sais déjà faire.",
+   qs:[
+    "…regardé ton reflet dans une vitrine en marchant ?",
+    "…pris plus de 20 selfies pour n'en garder qu'un seul ?",
+    "…refusé d'admettre que tu avais tort alors que tu le savais ?",
+    "…corrigé quelqu'un juste pour montrer que tu savais ?",
+    "…fait semblant de connaître un film, un livre ou un artiste ?",
+    "…tapé ton propre nom dans un moteur de recherche ?",
+    "…supprimé une publication parce qu'elle n'avait pas assez de likes ?",
+    "…pensé être la personne la plus intelligente de la pièce ?",
+    "…embelli une anecdote pour briller en soirée ?",
+    "…refusé de l'aide par fierté alors que tu en avais besoin ?",
+    "…ramené une conversation à toi ?",
+    "…méprisé les goûts musicaux de quelqu'un ?",
+    "…relu tes propres messages en te trouvant très drôle ?",
+    "…acheté un vêtement surtout pour le logo ?",
+    "…pensé « moi, je l'aurais mieux fait » en regardant quelqu'un travailler ?"
+   ]},
+  {id:"avarice", name:"Avarice", latin:"Avaritia", roman:"II", virtue:"la générosité",
+   portrait:"Chaque centime compte, et tu t'en souviens. Tu n'es pas forcément radin, mais tu as un sens aigu de l'addition, des échantillons gratuits et des petites économies qui s'accumulent.",
+   remede:"Paie la prochaine tournée sans calculer, et offre un vrai cadeau, pas un cadeau recyclé.",
+   qs:[
+    "…fait semblant d'avoir oublié ton portefeuille ?",
+    "…calculé ta part de l'addition au centime près ?",
+    "…gardé la monnaie qu'un caissier t'a rendue en trop ?",
+    "…offert à quelqu'un un cadeau que tu avais toi-même reçu ?",
+    "…pris plusieurs échantillons gratuits sans intention d'acheter ?",
+    "…évité un ami à qui tu devais de l'argent ?",
+    "…refusé de prêter quelque chose dont tu ne te servais pas ?",
+    "…emporté les petits savons et shampooings d'un hôtel ?",
+    "…laissé les autres payer la tournée sans rendre la pareille ?",
+    "…compté ton argent juste pour le plaisir de le compter ?",
+    "…rempli tes poches de sachets de sauce ou de sucre au fast-food ?",
+    "…utilisé le compte Netflix ou Spotify de quelqu'un sans jamais participer ?",
+    "…offert un cadeau bas de gamme en espérant que ça ne se voie pas ?",
+    "…zappé le pourboire alors que le service était excellent ?",
+    "…gardé un objet de valeur trouvé au lieu de chercher son propriétaire ?"
+   ]},
+  {id:"envie", name:"Envie", latin:"Invidia", roman:"III", virtue:"la bienveillance",
+   portrait:"Ton regard file souvent vers la pelouse du voisin. Les réussites des autres te piquent un peu, et les réseaux sociaux n'arrangent rien. C'est aussi le signe que tu sais ce que tu désires.",
+   remede:"Félicite sincèrement quelqu'un que tu envies, puis écris trois choses que tu as et qu'il n'a pas.",
+   qs:[
+    "…ressenti de l'agacement devant les photos de vacances d'un ami ?",
+    "…espéré en secret qu'un ami échoue ?",
+    "…dit de la réussite de quelqu'un « il a juste eu de la chance » ?",
+    "…fouillé le profil de l'ex de ton ou ta partenaire ?",
+    "…copié le style de quelqu'un que tu enviais ?",
+    "…comparé ton salaire ou tes notes avec ceux des autres ?",
+    "…été jaloux ou jalouse de la nouvelle relation de ton ex ?",
+    "…acheté quelque chose parce qu'un ami venait de l'avoir ?",
+    "…ressenti de la satisfaction en apprenant l'échec de quelqu'un ?",
+    "…fait un compliment que tu ne pensais pas du tout ?",
+    "…liké une photo à contrecœur ?",
+    "…rêvé d'avoir la vie d'une star ou d'un influenceur ?",
+    "…critiqué quelqu'un dans son dos parce qu'il avait ce que tu voulais ?",
+    "…jalousé l'attention qu'on portait à un frère, une sœur ou un cousin ?",
+    "…évité de féliciter quelqu'un pour une bonne nouvelle ?"
+   ]},
+  {id:"colere", name:"Colère", latin:"Ira", roman:"IV", virtue:"la patience",
+   portrait:"Tu as la mèche courte et le cœur chaud. Les portes claquent, les manettes volent, et les automobilistes entendent parler de toi. Ta colère dit souvent ce que tu trouves injuste.",
+   remede:"Avant d'envoyer un message énervé, attends dix minutes. Puis relis-le à voix haute.",
+   qs:[
+    "…claqué une porte ?",
+    "…insulté un autre conducteur, même fenêtres fermées ?",
+    "…crié sur un objet qui ne marchait pas ?",
+    "…envoyé un message énervé que tu as regretté ensuite ?",
+    "…raccroché au nez de quelqu'un ?",
+    "…quitté une partie de jeu vidéo de rage ?",
+    "…frappé un mur, une table ou un oreiller de colère ?",
+    "…boudé quelqu'un pendant plus d'une journée ?",
+    "…gardé rancune pendant plus d'un an ?",
+    "…imaginé une vengeance dans les moindres détails ?",
+    "…haussé le ton avec un serveur ou un employé ?",
+    "…cassé quelque chose sous le coup de la colère ?",
+    "…écrit un commentaire agressif sur Internet ?",
+    "…bloqué quelqu'un juste après une dispute ?",
+    "…ressorti une vieille dispute pour gagner la nouvelle ?"
+   ]},
+  {id:"luxure", name:"Luxure", latin:"Luxuria", roman:"V", virtue:"la tempérance du cœur",
+   portrait:"Ton cœur a plusieurs chambres et elles sont rarement vides. Les crushs, les regards appuyés et les messages de 2 h du matin font partie de ton quotidien.",
+   remede:"Range ton téléphone après minuit, et laisse les ex là où ils sont.",
+   qs:[
+    "…eu un crush sur un inconnu ou une inconnue dans les transports ?",
+    "…envoyé un message de drague à 2 h du matin ?",
+    "…regardé quelqu'un avec insistance à la plage ?",
+    "…eu un crush sur un prof ou un collègue ?",
+    "…dragué quelqu'un qui était déjà en couple ?",
+    "…embrassé quelqu'un le soir même de votre rencontre ?",
+    "…utilisé une application de rencontre ?",
+    "…eu un faible pour une célébrité au point d'en rêver ?",
+    "…embrassé plus d'une personne dans la même soirée ?",
+    "…recontacté un ex simplement parce que tu t'ennuyais ?",
+    "…menti sur toi pour séduire quelqu'un ?",
+    "…craqué pour le meilleur ami ou la meilleure amie d'un proche ?",
+    "…flirté pour obtenir une réduction ou un service ?",
+    "…regardé une série uniquement pour un acteur ou une actrice ?",
+    "…eu deux crushs en même temps ?"
+   ]},
+  {id:"gourmandise", name:"Gourmandise", latin:"Gula", roman:"VI", virtue:"la tempérance",
+   portrait:"La vie est courte, alors tu prends le dessert. Et parfois le deuxième. Ton frigo te connaît mieux que tes amis, et tu n'as jamais dit non à un buffet à volonté.",
+   remede:"Partage ta prochaine glace, et ne vole plus la part des autres dans le frigo.",
+   qs:[
+    "…mangé un paquet entier de biscuits d'une traite ?",
+    "…pris un deuxième dessert ?",
+    "…mangé directement dans le pot de glace ?",
+    "…commandé à manger alors que le frigo était plein ?",
+    "…mangé la part de quelqu'un d'autre dans le frigo ?",
+    "…fini l'assiette de quelqu'un d'autre ?",
+    "…tellement goûté en cuisinant que tu n'avais plus faim à table ?",
+    "…grignoté debout devant le frigo ouvert en pleine nuit ?",
+    "…caché de la nourriture pour ne pas avoir à partager ?",
+    "…mangé au point de devoir déboutonner ton pantalon ?",
+    "…pris le menu maxi « parce que c'est à peine plus cher » ?",
+    "…mangé le dessert avant le plat ?",
+    "…commandé à manger deux fois dans la même soirée ?",
+    "…pioché dans les courses avant d'arriver à la maison ?",
+    "…fait plus de trois allers-retours au buffet à volonté ?"
+   ]},
+  {id:"paresse", name:"Paresse", latin:"Acedia", roman:"VII", virtue:"la diligence",
+   portrait:"Pourquoi faire aujourd'hui ce qu'on peut faire demain ? Tu maîtrises l'art du snooze, de la sieste et de la dernière minute. Le canapé t'aime autant que tu l'aimes.",
+   remede:"Choisis une tâche que tu repousses depuis des semaines et fais-la maintenant, pendant dix minutes seulement.",
+   qs:[
+    "…fait semblant d'être malade pour ne pas aller en cours ou au travail ?",
+    "…appuyé plus de trois fois sur « snooze » ?",
+    "…passé une journée entière en pyjama ?",
+    "…regardé une saison entière d'une série en une journée ?",
+    "…laissé la vaisselle « tremper » pendant plusieurs jours ?",
+    "…rendu un devoir ou un dossier bouclé à la dernière minute ?",
+    "…ignoré un appel parce que tu n'avais pas la force de parler ?",
+    "…repoussé la même tâche au lendemain plus de cinq fois ?",
+    "…porté le même vêtement plusieurs jours pour ne pas en chercher un autre ?",
+    "…pris l'ascenseur pour monter un seul étage ?",
+    "…envoyé un message à quelqu'un dans la même maison pour ne pas te lever ?",
+    "…copié les devoirs de quelqu'un ?",
+    "…fait une sieste de plus de trois heures ?",
+    "…laissé du courrier non ouvert pendant des semaines ?",
+    "…commencé une résolution le lundi et abandonné le mardi ?"
+   ]}
+];
+
+const TOTAL = SINS.reduce((a,s)=>a+s.qs.length,0);
+const KEY = "peches-capitaux-v1";
+const $ = id => document.getElementById(id);
+const color = id => getComputedStyle(document.documentElement).getPropertyValue("--"+id).trim();
+
+/* ---------- Rendu ---------- */
+function build(){
+  $("strip").innerHTML = SINS.map(s=>`<i style="background:var(--${s.id})"></i>`).join("");
+  $("nav").innerHTML = SINS.map(s=>`<a href="#${s.id}"><i style="background:var(--${s.id})"></i>${s.name}</a>`).join("");
+  $("meter").innerHTML = SINS.map(s=>`<span data-m="${s.id}" style="background:var(--${s.id});width:0"></span>`).join("");
+  let n = 0;
+  $("sections").innerHTML = SINS.map(s=>{
+    const items = s.qs.map((q,i)=>{
+      n++;
+      const id = `q-${s.id}-${i}`;
+      return `<li><label for="${id}"><span class="num">${n}.</span><input type="checkbox" id="${id}" data-sin="${s.id}"><span class="qtext">As-tu déjà ${q.replace(/^…/,"")}</span></label></li>`;
+    }).join("");
+    return `<section class="sin" id="${s.id}" style="--c:var(--${s.id})">
+      <div class="sin-head">
+        <div class="roman">${s.roman}</div>
+        <h2>${s.name}<span class="latin">${s.latin}</span></h2>
+        <div class="sin-tally"><b data-t="${s.id}">0</b> / ${s.qs.length}</div>
+      </div>
+      <ol class="qs">${items}</ol>
+    </section>`;
+  }).join("");
+}
+
+function tally(){
+  const per = {};
+  SINS.forEach(s=>per[s.id]=0);
+  document.querySelectorAll('input[type=checkbox]:checked').forEach(c=>per[c.dataset.sin]++);
+  const total = Object.values(per).reduce((a,b)=>a+b,0);
+  return {per,total,score:Math.round(100 - total/TOTAL*100)};
+}
+
+function updateLive(){
+  const t = tally();
+  $("nChecked").textContent = t.total;
+  $("liveScore").textContent = t.score;
+  SINS.forEach(s=>{
+    document.querySelector(`[data-t="${s.id}"]`).textContent = t.per[s.id];
+    document.querySelector(`[data-m="${s.id}"]`).style.width = (t.per[s.id]/TOTAL*100)+"%";
+  });
+  save();
+}
+
+/* ---------- Sauvegarde locale ---------- */
+function save(){
+  try{
+    const ids=[...document.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.id);
+    localStorage.setItem(KEY, JSON.stringify(ids));
+  }catch(e){}
+}
+function load(){
+  try{
+    const ids = JSON.parse(localStorage.getItem(KEY)||"[]");
+    ids.forEach(id=>{const el=$(id); if(el) el.checked=true;});
+  }catch(e){}
+}
+
+/* ---------- Verdict ---------- */
+const CIRCLES = [
+  {min:90, name:"Le Paradis", desc:"Une auréole flotte au-dessus de ta tête. Soit tu es une personne remarquable, soit tu as menti à un test en ligne, ce qui serait déjà un péché."},
+  {min:80, name:"Le Purgatoire", desc:"Quelques petites fautes à expier, rien de grave. Un peu d'attente, deux ou trois prières, et les portes du Paradis s'ouvriront."},
+  {min:70, name:"Premier cercle · Les Limbes", desc:"Tu n'es ni vraiment bon ni vraiment mauvais. Tu passes l'éternité dans un endroit calme, un peu gris, avec les philosophes grecs."},
+  {min:60, name:"Deuxième cercle", desc:"Les vents de l'Enfer commencent à souffler. Tes petits vices sont devenus des habitudes, mais tout est encore rattrapable."},
+  {min:50, name:"Troisième cercle", desc:"Il pleut, il fait froid, et Cerbère te regarde avec intérêt. Tu profites de la vie, peut-être un peu trop."},
+  {min:40, name:"Quatrième cercle", desc:"Tu pousses de lourds rochers avec d'autres pécheurs confirmés. On t'appelle par ton prénom ici."},
+  {min:30, name:"Cinquième cercle", desc:"Les eaux du Styx t'arrivent à la taille. Tes amis t'adorent, ta conscience un peu moins."},
+  {min:20, name:"Sixième cercle", desc:"Les tombeaux brûlent autour de toi. Tu as cessé de résister à la tentation, et elle te le rend bien."},
+  {min:10, name:"Septième cercle", desc:"Tu as une chaise réservée près du feu. Même les démons prennent des notes en te regardant."},
+  {min:4,  name:"Huitième cercle", desc:"Les Malebolges, dix fosses de pure perdition. Tu y es chez toi, et tu as sûrement négocié la meilleure place."},
+  {min:0,  name:"Neuvième cercle · Le fond de l'Enfer", desc:"Tout en bas, dans la glace, face à Lucifer lui-même. Il te serre la main avec respect. Tu as coché presque tout."}
+];
+
+function circleFor(score){ return CIRCLES.find(c=>score>=c.min); }
+
+function radar(per){
+  const svg = $("radar");
+  const cx=150, cy=150, R=115, n=SINS.length;
+  const pt=(i,r)=>{const a=-Math.PI/2 + i*2*Math.PI/n; return [cx+r*Math.cos(a), cy+r*Math.sin(a)];};
+  let h = "";
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const pts = SINS.map((_,i)=>pt(i,R*f).map(v=>v.toFixed(1)).join(",")).join(" ");
+    h += `<polygon points="${pts}" fill="none" stroke="var(--line)" stroke-width="1"/>`;
+  });
+  SINS.forEach((_,i)=>{const [x,y]=pt(i,R); h+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-width="1"/>`;});
+  [50,100].forEach(v=>{ h += `<text x="${cx+4}" y="${(cy-R*v/100+12).toFixed(1)}" font-family="Alegreya Sans SC, sans-serif" font-size="11" fill="var(--muted)">${v} %</text>`; });
+  const vals = SINS.map(s=>per[s.id]/s.qs.length);
+  const poly = SINS.map((_,i)=>pt(i,R*Math.max(vals[i],0.02)).map(v=>v.toFixed(1)).join(",")).join(" ");
+  h += `<polygon points="${poly}" fill="rgba(217,170,82,.22)" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/>`;
+  SINS.forEach((s,i)=>{
+    const [x,y]=pt(i,R*Math.max(vals[i],0.02));
+    h += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="var(--${s.id})" stroke="var(--ink)" stroke-width="1.5"/>`;
+    const [lx,ly]=pt(i,R+26);
+    const anchor = Math.abs(lx-cx)<8 ? "middle" : (lx>cx ? "start" : "end");
+    h += `<text x="${lx.toFixed(1)}" y="${(ly+5).toFixed(1)}" text-anchor="${anchor}" font-family="Alegreya Sans SC, sans-serif" font-size="15" font-weight="700" fill="var(--${s.id})">${s.name}</text>`;
+  });
+  svg.innerHTML = h;
+}
+
+function showResults(){
+  const t = tally();
+  const c = circleFor(t.score);
+  $("rScore").textContent = t.score;
+  $("rCircle").textContent = c.name;
+  $("rCircleDesc").textContent = c.desc;
+
+  const ranked = SINS.map(s=>({s,pct:Math.round(t.per[s.id]/s.qs.length*100)}));
+  $("bars").innerHTML = ranked.map(r=>`<div class="brow"><span class="n" style="color:var(--${r.s.id})">${r.s.name}</span><span class="t"><span style="width:${r.pct}%;background:var(--${r.s.id})"></span></span><span class="p">${r.pct} %</span></div>`).join("");
+  radar(t.per);
+
+  const sorted = [...ranked].sort((a,b)=>b.pct-a.pct);
+  const top = sorted[0], low = sorted[sorted.length-1];
+  const d = $("dominant");
+  if(t.total===0){
+    d.style.setProperty("--c","var(--gold)");
+    d.innerHTML = `<div class="tag">Péché dominant</div><h4>Aucun</h4><p>Tu n'as rien coché. Soit tu es prêt pour la canonisation, soit tu viens de commettre le péché d'orgueil en prétendant n'en avoir aucun.</p>`;
+  } else {
+    const ties = sorted.filter(r=>r.pct===top.pct).map(r=>r.s.name);
+    d.style.setProperty("--c",`var(--${top.s.id})`);
+    d.innerHTML = `<div class="tag">Péché dominant · ${top.pct} %</div>
+      <h4>${top.s.name}${ties.length>1?` <span style="font-size:.5em;color:var(--muted)">à égalité avec ${ties.slice(1).join(", ")}</span>`:""}</h4>
+      <p>${top.s.portrait}</p>
+      <p class="remede"><b>Le remède :</b> ${top.s.virtue.charAt(0).toUpperCase()+top.s.virtue.slice(1)}. ${top.s.remede}</p>
+      <p class="remede"><b>Ta meilleure vertu :</b> tu résistes surtout à ${low.s.name.toLowerCase()} (${low.pct} %).</p>`;
+  }
+
+  $("shareText").value = `Test des Péchés Capitaux : indice de vertu ${t.score}/100. Destination : ${c.name}. `
+    + (t.total ? `Péché dominant : ${top.s.name} (${top.pct} %). ` : "Aucun péché avoué. ")
+    + ranked.map(r=>`${r.s.name} ${r.pct} %`).join(" · ");
+  $("toast").textContent = "";
+
+  const res = $("results");
+  res.hidden = false;
+  res.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+}
+
+/* ---------- Événements ---------- */
+build();
+load();
+updateLive();
+
+document.addEventListener("change", e=>{
+  if(e.target && e.target.matches && e.target.matches('input[type=checkbox]')){
+    updateLive();
+    if(!$("results").hidden) showResultsQuiet();
+  }
+});
+function showResultsQuiet(){
+  const y = window.scrollY; showResults(); window.scrollTo(0,y);
+}
+
+$("calc").addEventListener("click", showResults);
+
+let resetArmed = false, resetTimer;
+$("reset").addEventListener("click", ()=>{
+  const b = $("reset");
+  if(!resetArmed){
+    resetArmed = true; b.textContent = "Confirmer l'effacement"; b.classList.add("danger");
+    resetTimer = setTimeout(()=>{resetArmed=false; b.textContent="Tout effacer"; b.classList.remove("danger");}, 4000);
+    return;
+  }
+  clearTimeout(resetTimer);
+  resetArmed = false; b.textContent = "Tout effacer"; b.classList.remove("danger");
+  document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+  $("results").hidden = true;
+  updateLive();
+  window.scrollTo({top:0});
+});
+
+$("copy").addEventListener("click", ()=>{
+  const ta = $("shareText");
+  const done = ()=>{$("toast").textContent = "Copié";};
+  const fallback = ()=>{ta.focus(); ta.select(); $("toast").textContent = "Texte sélectionné, copie-le avec Ctrl+C";};
+  try{
+    navigator.clipboard.writeText(ta.value).then(done, fallback);
+  }catch(e){ fallback(); }
+});
+</script>
+</body>
+</html>
